@@ -1,26 +1,327 @@
 @import "tailwindcss";
 
+/* Avalanche Rewind Design System
+ * 
+ * Colors:
+ * - Primary Red: #E84142 (Avalanche brand)
+ * - Dark Background: #050816
+ * - Card Background: #0D1224
+ * - Text Primary: #FFFFFF
+ * - Text Secondary: #9CA3AF
+ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Avalanche Brand Colors */
+  --avax-red: #E84142;
+  --avax-red-dark: #C73536;
+  --avax-red-light: #FF5A5B;
+  
+  /* Background Colors */
+  --bg-dark: #050816;
+  --bg-card: #0D1224;
+  --bg-card-hover: #151B30;
+  --bg-gradient-start: #050816;
+  --bg-gradient-end: #1A0A1E;
+  
+  /* Text Colors */
+  --text-primary: #FFFFFF;
+  --text-secondary: #9CA3AF;
+  --text-muted: #6B7280;
+  
+  /* Accent Colors */
+  --accent-blue: #3B82F6;
+  --accent-purple: #8B5CF6;
+  --accent-green: #10B981;
+  --accent-yellow: #F59E0B;
+  
+  /* Shadows */
+  --shadow-glow: 0 0 60px rgba(232, 65, 66, 0.3);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Force dark mode - no system preference */
+html {
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-avax-red: var(--avax-red);
+  --color-avax-red-dark: var(--avax-red-dark);
+  --color-avax-red-light: var(--avax-red-light);
+  --color-avax-dark: var(--bg-dark);
+  --color-avax-card: var(--bg-card);
+  --color-avax-card-hover: var(--bg-card-hover);
+  --font-sans: var(--font-inter), system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-gradient-end) 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--avax-red);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--avax-red-light);
+}
+
+/* Selection */
+::selection {
+  background: var(--avax-red);
+  color: white;
+}
+
+/* Slide Animations */
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(232, 65, 66, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(232, 65, 66, 0.6);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Utility Classes */
+.animate-slide-in-right {
+  animation: slideInFromRight 0.6s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInFromLeft 0.6s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.animate-count-up {
+  animation: countUp 0.4s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+/* Glass Effect */
+.glass {
+  background: rgba(13, 18, 36, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-hover:hover {
+  background: rgba(21, 27, 48, 0.9);
+  border-color: rgba(232, 65, 66, 0.3);
+}
+
+/* Gradient Text (for backgrounds/decorations only, not main text) */
+.gradient-text-decoration {
+  background: linear-gradient(135deg, var(--avax-red) 0%, var(--accent-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card Styles */
+.card-avax {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s ease;
+}
+
+.card-avax:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(232, 65, 66, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Button Styles */
+.btn-primary {
+  background: linear-gradient(135deg, var(--avax-red) 0%, var(--avax-red-dark) 100%);
+  color: white;
+  font-weight: 600;
+  padding: 12px 32px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232, 65, 66, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: white;
+  font-weight: 600;
+  padding: 12px 32px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  border-color: var(--avax-red);
+  background: rgba(232, 65, 66, 0.1);
+}
+
+/* Slide Container */
+.slide-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+}
+
+/* Progress Dots */
+.progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.progress-dot.active {
+  background: var(--avax-red);
+  box-shadow: 0 0 12px rgba(232, 65, 66, 0.6);
+}
+
+/* Chart Customization */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(255, 255, 255, 0.05);
+}
+
+.recharts-text {
+  fill: var(--text-secondary);
+}
+
+/* Responsive Typography */
+.text-display {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.text-headline {
+  font-size: clamp(1.5rem, 5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.text-title {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* Shimmer loading effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.03) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
 }
